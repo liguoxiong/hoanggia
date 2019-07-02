@@ -33,7 +33,7 @@ const mutations = {
 };
 
 const getters = {
-  getLang: state => state.lang
+  // getLang: state => state.lang
 };
 
 export default new Vuex.Store({

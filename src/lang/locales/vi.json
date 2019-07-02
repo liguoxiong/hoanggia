@@ -2,5 +2,14 @@
   "common": {
     "select_lang": "Ngôn ngữ"
   },
-  "Home": "Trang chủ"
+
+  "mainNavTitle1": "Trang chủ",
+  "mainNavTitle2": "Feature",
+  "mainNavTitle3": "Dịch vụ",
+  "mainNavTitle4": "Đội ngũ",
+  "mainNavTitle5": "Pricing",
+  "mainNavTitle6": "Works",
+  "mainNavTitle7": "Testimonial",
+  "mainNavTitle8": "Giới thiệu",
+  "mainNavTitle9": "Liên hệ"
 }

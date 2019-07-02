@@ -1,5 +1,8 @@
 <template>
-  <nav class="navbar navbar-expand-md bg-inverse fixed-top scrolling-navbar">
+  <nav
+    class="navbar navbar-expand-md bg-inverse fixed-top scrolling-navbar"
+    :class="{ 'top-nav-collapse': changeNavBg }"
+  >
     <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
       <router-link to="/" class="navbar-brand">
@@ -43,43 +46,44 @@ export default {
     return {
       navItems: [
         {
-          title: "Home",
+          title: "mainNavTitle1",
           linkTo: "/"
+        },
+        {
+          title: "mainNavTitle2",
+          linkTo: "#hero-area"
+        },
+        {
+          title: "mainNavTitle3",
+          linkTo: "#hero-area"
+        },
+        {
+          title: "mainNavTitle4",
+          linkTo: "#hero-area"
+        },
+        {
+          title: "mainNavTitle5",
+          linkTo: "#hero-area"
+        },
+        {
+          title: "mainNavTitle6",
+          linkTo: "#hero-area"
+        },
+        {
+          title: "mainNavTitle7",
+          linkTo: "#hero-area"
+        },
+        {
+          title: "mainNavTitle8",
+          linkTo: "/about"
+        },
+        {
+          title: "mainNavTitle9",
+          linkTo: "#hero-area"
         }
-        // {
-        //   title: "Feature",
-        //   linkTo: "#hero-area"
-        // },
-        // {
-        //   title: "Services",
-        //   linkTo: "#hero-area"
-        // },
-        // {
-        //   title: "Team",
-        //   linkTo: "#hero-area"
-        // },
-        // {
-        //   title: "Pricing",
-        //   linkTo: "#hero-area"
-        // },
-        // {
-        //   title: "Works",
-        //   linkTo: "#hero-area"
-        // },
-        // {
-        //   title: "Testimonial",
-        //   linkTo: "#hero-area"
-        // },
-        // {
-        //   title: "About",
-        //   linkTo: "/about"
-        // },
-        // {
-        //   title: "Contact",
-        //   linkTo: "#hero-area"
-        // }
       ],
       selected: "",
+      changeNavBg: false,
       optionLangs: [
         {
           text: "Tiếng Việt",
@@ -95,10 +99,20 @@ export default {
   methods: {
     callSetLangActions(event) {
       this.$store.dispatch("setLang", event.target.value);
-      console.log(this.$store.state.lang);
+    },
+
+    handleScroll() {
+      const currentScrollPosition =
+        window.pageYOffset || document.documentElement.scrollTop;
+      this.changeNavBg = currentScrollPosition > 50;
     }
   },
-  computed: {},
+  created() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
+  },
 
   mounted() {
     this.selected = window.localStorage.getItem("language") || "vi";

@@ -16,5 +16,17 @@ module.exports = {
       localeDir: "locales",
       enableInSFC: true
     }
+  },
+  devServer: {
+    proxy: {
+      "/api/*": {
+        target: "http://localhost:8000",
+        secure: false
+      },
+      "/images/*": {
+        target: "http://localhost:8000",
+        changeOrigin: true
+      }
+    }
   }
 };

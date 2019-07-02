@@ -5,7 +5,7 @@
         <h2 class="section-title wow fadeInDown" data-wow-delay="0.3s">Meet our team</h2>
         <p>
           A desire to help and empower others between community contributors in technology
-          <br>began to grow in 2020.
+          <br />began to grow in 2020.
         </p>
       </div>
       <div class="row">
@@ -13,7 +13,7 @@
           <!-- Team Item Starts -->
           <div class="team-item text-center wow fadeInRight" data-wow-delay="0.3s">
             <div class="team-img">
-              <img class="img-fluid" :src="item.image" alt>
+              <img class="img-fluid" :src="/images/ + item.image" alt />
               <div class="team-overlay">
                 <div class="overlay-social-icon text-center">
                   <ul class="social-icons">
@@ -38,9 +38,9 @@
             </div>
             <div class="info-text">
               <h3>
-                <router-link :to="item.linkTo">{{item.title}}</router-link>
+                <router-link :to="item.link">{{item.name}}</router-link>
               </h3>
-              <p>{{item.description}}</p>
+              <p>{{item[lang]}}</p>
             </div>
           </div>
           <!-- Team Item Ends -->
@@ -51,42 +51,54 @@
 </template>
 
 <script>
-import imgTeam01 from "./../../assets/img/team/team-01.png";
-import imgTeam02 from "./../../assets/img/team/team-02.png";
-import imgTeam03 from "./../../assets/img/team/team-03.png";
-import imgTeam04 from "./../../assets/img/team/team-04.png";
+import axios from "axios";
+import store from "@/store";
+import { mapState } from "vuex";
 
 export default {
   name: "Branch",
+  store: store,
+  computed: mapState(["lang"]),
   data: function() {
     return {
       items: [
-        {
-          image: imgTeam01,
-          title: "David Smith",
-          description: "Front-end Developer",
-          linkTo: "/"
-        },
-        {
-          image: imgTeam02,
-          title: "Ote Mona",
-          description: "Developer",
-          linkTo: "/"
-        },
-        {
-          image: imgTeam03,
-          title: "Nak Crne",
-          description: "Backend Developer",
-          linkTo: "/"
-        },
-        {
-          image: imgTeam04,
-          title: "Jackie Moin",
-          description: "FullStack Developer",
-          linkTo: "/"
-        }
+        // {
+        //   image: imgTeam01,
+        //   title: "David Smith",
+        //   description: "Front-end Developer",
+        //   linkTo: "/"
+        // },
+        // {
+        //   image: imgTeam02,
+        //   title: "Ote Mona",
+        //   description: "Developer",
+        //   linkTo: "/"
+        // },
+        // {
+        //   image: imgTeam03,
+        //   title: "Nak Crne",
+        //   description: "Backend Developer",
+        //   linkTo: "/"
+        // },
+        // {
+        //   image: imgTeam04,
+        //   title: "Jackie Moin",
+        //   description: "FullStack Developer",
+        //   linkTo: "/"
+        // }
       ]
     };
+  },
+  mounted() {
+    axios.get("/api/branches").then(response => {
+      return (this.items = response.data.data);
+    });
   }
 };
 </script>
+
+<style lang="scss" scoped>
+img {
+  height: 20vh;
+}
+</style>

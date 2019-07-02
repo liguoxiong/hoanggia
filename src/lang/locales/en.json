@@ -2,5 +2,14 @@
   "common": {
     "select_lang": "Language"
   },
-  "Home": "Home"
+
+  "mainNavTitle1": "Home",
+  "mainNavTitle2": "Feature",
+  "mainNavTitle3": "Services",
+  "mainNavTitle4": "Team",
+  "mainNavTitle5": "Pricing",
+  "mainNavTitle6": "Works",
+  "mainNavTitle7": "Testimonial",
+  "mainNavTitle8": "About",
+  "mainNavTitle9": "Contact"
 }
