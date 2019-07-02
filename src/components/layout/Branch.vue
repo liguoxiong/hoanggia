@@ -101,4 +101,7 @@ export default {
 img {
   height: 20vh;
 }
+.row {
+  justify-content: center;
+}
 </style>
