@@ -7,7 +7,7 @@
             <div>
               <h2 class="title-hl wow fadeInLeft" data-wow-delay="0.3s">
                 We are helping to grow
-                <br>your business.
+                <br />your business.
               </h2>
               <p
                 class="mb-4"
@@ -26,11 +26,11 @@
               :key="index"
             >
               <div class="icon">
-                <i :class="item.icon"></i>
+                <img class="img-fluid" :src="/images/ + item.image" :alt="item.name[lang]" />
               </div>
               <div class="feature-content">
-                <h3>{{ item.title }}</h3>
-                <p>{{ item.content }}</p>
+                <h3>{{ item ? item.name[lang] : "" }}</h3>
+                <p>{{ item ? item.description[lang] : "" }}</p>
               </div>
             </div>
           </div>
@@ -41,32 +41,44 @@
 </template>
 
 <script>
+import axios from "axios";
+import store from "@/store";
+import { mapState } from "vuex";
+
 export default {
   name: "Feature",
+  computed: mapState(["lang"]),
   data: function() {
     return {
       items: [
-        {
-          item: "lni-microphone",
-          title: "What we do",
-          content:
-            "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia con- sequuntur magni dolores"
-        },
-        {
-          item: "lni-users",
-          title: "Meet our team",
-          content:
-            "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia con- sequuntur magni dolores"
-        },
-        {
-          item: "lni-medall-alt",
-          title: "Our Creation",
-          content:
-            "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia con- sequuntur magni dolores"
-        }
+        // {
+        //   item: "lni-microphone",
+        //   title: "What we do",
+        //   content:
+        //     "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia con- sequuntur magni dolores"
+        // },
+        // {
+        //   item: "lni-users",
+        //   title: "Meet our team",
+        //   content:
+        //     "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia con- sequuntur magni dolores"
+        // },
+        // {
+        //   item: "lni-medall-alt",
+        //   title: "Our Creation",
+        //   content:
+        //     "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia con- sequuntur magni dolores"
+        // }
       ]
     };
   },
+
+  mounted() {
+    axios.get("/api/features").then(response => {
+      return (this.items = response.data.data);
+    });
+  },
+
   methods: {
     delay(milsec) {
       return `${300 + milsec * 200}ms`;
@@ -103,10 +115,13 @@ export default {
     transition: all 0.6s ease;
     -moz-transition: all 0.6s ease;
     -webkit-transition: all 0.6s ease;
-    i {
-      font-size: 36px;
-      color: #fff;
-      line-height: 80px;
+    img {
+      // font-size: 36px;
+      // color: #fff;
+      // line-height: 80px;
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
     }
   }
 }

@@ -2,31 +2,22 @@
   <div class="copyright">
     <div class="container">
       <div class="row">
-        <div class="col-lg-4 col-md-3 col-xs-12">
-          <div class="footer-logo" v-bind="items">
-            <img :src="items.logo" alt>
-          </div>
-        </div>
-        <div class="col-lg-8 col-md-9 col-xs-12">
-          <p class="float-left">Copyright &copy;2019 Hoanggia Co., Ltd. All Rights Reserved</p>
-        </div>
+        <p class>Copyright &copy;2019 Hoanggia Co., Ltd. All Rights Reserved</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import logo from "./../../assets/img/logo.png";
-
 export default {
-  name: "Footer",
-  data: function() {
-    return {
-      items: {
-        logo
-      }
-    };
-  }
+  name: "Footer"
+  // data: function() {
+  //   return {
+  //     items: {
+  //       logo
+  //     }
+  //   };
+  // }
 };
 </script>
 
@@ -73,10 +64,10 @@ export default {
 }
 .copyright {
   background: #34363a;
-  .footer-logo {
-    margin-top: 13px;
-    img {
-      width: 80%;
+  .container {
+    justify-content: center;
+    .row {
+      justify-content: center;
     }
   }
   p {

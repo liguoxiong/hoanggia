@@ -16,7 +16,7 @@
                       placeholder="Name"
                       required
                       data-error="Please enter your name"
-                    >
+                    />
                     <div class="help-block with-errors"></div>
                   </div>
                 </div>
@@ -30,7 +30,7 @@
                       name="email"
                       required
                       data-error="Please enter your email"
-                    >
+                    />
                     <div class="help-block with-errors"></div>
                   </div>
                 </div>
@@ -43,7 +43,7 @@
                       class="form-control"
                       required
                       data-error="Please enter your subject"
-                    >
+                    />
                     <div class="help-block with-errors"></div>
                   </div>
                 </div>
@@ -81,7 +81,7 @@
                 <div class="contact-icon">
                   <i class="lni-map-marker"></i>
                 </div>
-                <p>ADDRESS: {{info.address}}</p>
+                <p>ADDRESS: {{info.address ? info.address[lang] : ""}}</p>
               </div>
               <div class="single-contact">
                 <div class="contact-icon">
@@ -108,16 +108,27 @@
 </template>
 
 <script>
+import axios from "axios";
+import store from "@/store";
+import { mapState } from "vuex";
+
 export default {
   name: "Contact",
+  store,
+  computed: mapState(["lang"]),
   data: function() {
     return {
       info: {
-        address: "28 Green Tower, New York City, USA",
-        email: "contact@hoanggia.asia",
-        phone: "+84 846 250 592"
+        // address: "28 Green Tower, New York City, USA",
+        // email: "contact@hoanggia.asia",
+        // phone: "+84 846 250 592"
       }
     };
+  },
+  mounted() {
+    axios.get("/api/info").then(response => {
+      return (this.info = response.data.data[0]);
+    });
   }
 };
 </script>
