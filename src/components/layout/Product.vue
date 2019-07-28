@@ -3,20 +3,27 @@
     <!-- Container Starts -->
     <div class="container">
       <div class="section-header text-center">
-        <h2 class="section-title wow fadeInDown" data-wow-delay="0.3s">Our Works</h2>
-        <p>
-          A desire to help and empower others between community contributors in technology
-          <br>began to grow in 2020.
-        </p>
+        <h2 class="section-title wow fadeInDown" data-wow-delay="0.3s">{{$t("products")}}</h2>
+        <p>{{content ? content.product_description[lang] : ""}}</p>
       </div>
       <div class="row">
         <div class="col-md-12">
           <!-- Portfolio Controller/Buttons -->
           <div class="controls text-center">
-            <a class="filter active btn btn-common btn-effect" data-filter="all">All</a>
-            <a class="filter btn btn-common btn-effect" data-filter=".design">Design</a>
-            <a class="filter btn btn-common btn-effect" data-filter=".development">Development</a>
-            <a class="filter btn btn-common btn-effect" data-filter=".print">Print</a>
+            <a
+              class="filter btn btn-common btn-effect"
+              :class="{active : isActive ==='all'}"
+              data-filter="all"
+              v-on:click="handleLoadAll()"
+            >{{$t("all")}}</a>
+            <a
+              v-for="category in categories"
+              :key="category.id"
+              class="filter btn btn-common btn-effect"
+              :class="{active : isActive === category.id}"
+              data-filter="{category.name[lang]}"
+              v-on:click="handleLoadByCat(category.id)"
+            >{{category.name[lang]}}</a>
           </div>
           <!-- Portfolio Controller/Buttons Ends-->
         </div>
@@ -26,21 +33,21 @@
       <div id="portfolio" class="row">
         <div
           class="col-lg-4 col-md-6 col-xs-12 mix development print"
-          v-for="(item, index) in items"
+          v-for="(item, index) in products"
           :key="index"
         >
           <div class="portfolio-item">
             <div class="shot-item">
-              <img :src="item.image" alt>
+              <img :src="/images/ + item.image" alt />
               <div class="single-content">
                 <div class="fancy-table">
                   <div class="table-cell">
-                    <div class="zoom-icon">
+                    <!-- <div class="zoom-icon">
                       <a class="lightbox" href="assets/img/portfolio/img-1.jpg">
                         <i class="lni-eye item-icon"></i>
                       </a>
-                    </div>
-                    <router-link :to="item.linkTo">{{item.title}}</router-link>
+                    </div>-->
+                    <a href="#">{{item.name[lang]}}</a>
                   </div>
                 </div>
               </div>
@@ -54,50 +61,44 @@
 </template>
 
 <script>
-import productImg01 from "./../../assets/img/portfolio/img-1.jpg";
-import productImg02 from "./../../assets/img/portfolio/img-2.jpg";
-import productImg03 from "./../../assets/img/portfolio/img-3.jpg";
-import productImg04 from "./../../assets/img/portfolio/img-4.jpg";
-import productImg05 from "./../../assets/img/portfolio/img-5.jpg";
-import productImg06 from "./../../assets/img/portfolio/img-6.jpg";
+import axios from "axios";
+import { mapState } from "vuex";
 
 export default {
   name: "Product",
+  computed: mapState(["lang", "content"]),
+  mounted() {
+    axios.get("/api/categories").then(response => {
+      return (this.categories = response.data.data);
+    });
+    axios.get("/api/products").then(response => {
+      this.isActive = "all";
+      console.log(this.isActive);
+      return (this.products = response.data.data);
+    });
+  },
   data: function() {
     return {
-      items: [
-        {
-          title: "Creative Design",
-          image: productImg01,
-          linkTo: "/"
-        },
-        {
-          title: "Creative Design",
-          image: productImg02,
-          linkTo: "/"
-        },
-        {
-          title: "Creative Design",
-          image: productImg03,
-          linkTo: "/"
-        },
-        {
-          title: "Creative Design",
-          image: productImg04,
-          linkTo: "/"
-        },
-        {
-          title: "Creative Design",
-          image: productImg05,
-          linkTo: "/"
-        },
-        {
-          title: "Creative Design",
-          image: productImg06,
-          linkTo: "/"
-        }
-      ]
+      categories: [],
+      products: [],
+      isActive: ""
     };
+  },
+  methods: {
+    handleLoadAll() {
+      axios.get("/api/products").then(response => {
+        this.isActive = "all";
+        console.log(this.isActive);
+        return (this.products = response.data.data);
+      });
+    },
+    handleLoadByCat(id) {
+      axios.get(`/api/products?cat=${id}`).then(response => {
+        this.isActive = id.toString();
+        console.log(this.isActive);
+        return (this.products = response.data.data);
+      });
+    }
   }
 };
 </script>
@@ -121,7 +122,7 @@ export default {
   .active {
     color: $preset !important;
     border-color: $preset;
-    background: transparent;
+    background: transparent !important;
   }
   .btn {
     text-transform: uppercase;

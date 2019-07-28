@@ -2,11 +2,11 @@
   <section id="team" class="section-padding text-center">
     <div class="container">
       <div class="section-header text-center">
-        <h2 class="section-title wow fadeInDown" data-wow-delay="0.3s">Meet our team</h2>
-        <p>
-          A desire to help and empower others between community contributors in technology
-          <br />began to grow in 2020.
-        </p>
+        <h2
+          class="section-title wow fadeInDown"
+          data-wow-delay="0.3s"
+        >{{content ? content.distributor_title[lang] : ""}}</h2>
+        <p>{{content ? content.distributor_description[lang] : ""}}</p>
       </div>
       <div class="row">
         <div class="col-sm-6 col-md-6 col-lg-3" v-for="(item, index) in items" :key="index">
@@ -58,35 +58,10 @@ import { mapState } from "vuex";
 export default {
   name: "Branch",
   store: store,
-  computed: mapState(["lang"]),
+  computed: mapState(["lang", "content"]),
   data: function() {
     return {
-      items: [
-        // {
-        //   image: imgTeam01,
-        //   title: "David Smith",
-        //   description: "Front-end Developer",
-        //   linkTo: "/"
-        // },
-        // {
-        //   image: imgTeam02,
-        //   title: "Ote Mona",
-        //   description: "Developer",
-        //   linkTo: "/"
-        // },
-        // {
-        //   image: imgTeam03,
-        //   title: "Nak Crne",
-        //   description: "Backend Developer",
-        //   linkTo: "/"
-        // },
-        // {
-        //   image: imgTeam04,
-        //   title: "Jackie Moin",
-        //   description: "FullStack Developer",
-        //   linkTo: "/"
-        // }
-      ]
+      items: []
     };
   },
   mounted() {

@@ -2,8 +2,8 @@
   <div id="clients" class="section-padding bg-gray">
     <div class="container">
       <div class="section-header text-center">
-        <h2 class="section-title wow fadeInDown" data-wow-delay="0.3s">NOTABLE CLIENTS</h2>
-        <p>Over the last 20 years, we have helped and guided organisations to achieve outstanding results</p>
+        <h2 class="section-title wow fadeInDown" data-wow-delay="0.3s">{{$t("clients")}}</h2>
+        <p>{{content.clients_description ? content.clients_description[lang] : ""}}</p>
       </div>
       <div class="row text-align-center">
         <div
@@ -23,32 +23,14 @@
 
 <script>
 import axios from "axios";
-import store from "@/store";
 import { mapState } from "vuex";
 
 export default {
   name: "Clients",
-  computed: mapState(["lang"]),
+  computed: mapState(["lang", "content"]),
   data: function() {
     return {
-      items: [
-        // {
-        //   title: "",
-        //   image: client01
-        // },
-        // {
-        //   title: "",
-        //   image: client02
-        // },
-        // {
-        //   title: "",
-        //   image: client03
-        // },
-        // {
-        //   title: "",
-        //   image: client04
-        // }
-      ]
+      items: []
     };
   },
   mounted() {

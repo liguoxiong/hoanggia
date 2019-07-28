@@ -88,7 +88,7 @@
                   <i class="lni-envelope"></i>
                 </div>
                 <p>
-                  <a href="#">Email: {{info.email}}</a>
+                  <a href="#">Email: {{info.email ? info.email : ""}}</a>
                 </p>
               </div>
               <div class="single-contact">
@@ -96,7 +96,7 @@
                   <i class="lni-phone-handset"></i>
                 </div>
                 <p>
-                  <a href="#">Phone: {{info.phone}}</a>
+                  <a href="#">Phone: {{info.phone ? info.phone : ""}}</a>
                 </p>
               </div>
             </div>

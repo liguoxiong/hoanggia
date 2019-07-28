@@ -2,24 +2,19 @@
   <section id="services" class="section-padding bg-gray">
     <div class="container">
       <div class="section-header text-center">
-        <h2 class="section-title wow fadeInDown" data-wow-delay="0.3s">Our Services</h2>
-        <p>
-          A desire to help and empower others between community contributors in technology
-          <br>began to grow in 2020.
-        </p>
+        <h2 class="section-title wow fadeInDown" data-wow-delay="0.3s">{{ $t("services") }}</h2>
+        <p>{{content ? content.service_description[lang] : ""}}</p>
       </div>
       <div class="row">
         <!-- Services item -->
         <div class="col-md-6 col-lg-4 col-xs-12" v-for="(item, index) in items" :key="index">
           <div class="services-item wow fadeInRight" :data-wow-delay="delay(index)">
             <div class="icon">
-              <i class="lni-pencil"></i>
+              <img :src="/images/ + item.image" :alt="item.name[lang]" />
             </div>
             <div class="services-content">
-              <h3>
-                <router-link :to="item.linkTo">{{item.title}}</router-link>
-              </h3>
-              <p>{{item.description}}</p>
+              <h3>{{item.name ? item.name[lang] : ""}}</h3>
+              <p>{{item.description ? item.description[lang] : ""}}</p>
             </div>
           </div>
         </div>
@@ -30,54 +25,20 @@
 </template>
 
 <script>
+import axios from "axios";
+import { mapState } from "vuex";
+
 export default {
   name: "Service",
+  computed: mapState(["lang", "content"]),
+  mounted() {
+    axios.get("/api/services").then(response => {
+      return (this.items = response.data.data);
+    });
+  },
   data: function() {
     return {
-      items: [
-        {
-          icon: "lni-rocket",
-          title: "Content Writing",
-          linkTo: "#",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde perspiciatis dicta labore nulla beatae quaerat quia incidunt laborum aspernatur..."
-        },
-        {
-          icon: "lni-rocket",
-          title: "Digital Marketing",
-          linkTo: "#",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde perspiciatis dicta labore nulla beatae quaerat quia incidunt laborum aspernatur..."
-        },
-        {
-          icon: "lni-rocket",
-          title: "Content Writing",
-          linkTo: "#",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde perspiciatis dicta labore nulla beatae quaerat quia incidunt laborum aspernatur..."
-        },
-        {
-          icon: "lni-rocket",
-          title: "Web Development",
-          linkTo: "#",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde perspiciatis dicta labore nulla beatae quaerat quia incidunt laborum aspernatur..."
-        },
-        {
-          icon: "lni-rocket",
-          title: "IOS & Android",
-          linkTo: "#",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde perspiciatis dicta labore nulla beatae quaerat quia incidunt laborum aspernatur..."
-        },
-        {
-          icon: "lni-rocket",
-          title: "Branding & Identity",
-          linkTo: "#",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde perspiciatis dicta labore nulla beatae quaerat quia incidunt laborum aspernatur..."
-        }
-      ]
+      items: []
     };
   },
   methods: {
@@ -90,6 +51,7 @@ export default {
 
 <style lang="scss" scoped>
 .services-item {
+  height: 70vh;
   background: #fff;
   margin: 15px 0;
   padding: 30px;
@@ -101,12 +63,14 @@ export default {
   -webkit-transition: all 0.3s ease-in-out 0s;
   -o-transition: all 0.3s ease-in-out 0s;
   .icon {
-    i {
-      font-size: 42px;
-      color: $preset;
+    height: 35vh;
+    img {
+      width: 100%;
+      height: 100%;
     }
   }
   .services-content {
+    padding-top: 2rem;
     h3 {
       font-weight: 600;
       text-transform: uppercase;

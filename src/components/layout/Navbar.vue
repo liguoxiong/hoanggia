@@ -6,7 +6,7 @@
     <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
       <router-link to="/" class="navbar-brand">
-        <img src="./../../assets/img/logo.png" alt>
+        <img src="./../../assets/img/logo.png" alt />
       </router-link>
       <button
         class="navbar-toggler"
@@ -22,16 +22,13 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto w-100 justify-content-end clearfix">
           <li class="nav-item" v-for="(navItem, index) in navItems" :key="index">
-            <router-link :to="navItem.linkTo" class="nav-link">{{ $t(navItem.title) }}</router-link>
+            <router-link to="#" :v-scroll-to="'#team'" class="nav-link">{{ $t(navItem.title) }}</router-link>
           </li>
           <li class="nav-item">
-            <select name="lang_selected" v-model="selected" @change="callSetLangActions($event)">
-              <option
-                v-for="(option, index) in  optionLangs"
-                :key="index"
-                :value="option.value"
-              >{{ option.text }}</option>
-            </select>
+            <div class="nav-link">|</div>
+          </li>
+          <li class="nav-item">
+            <div v-on:click="handleChangeLang()" class="nav-link">{{ language }}</div>
           </li>
         </ul>
       </div>
@@ -40,8 +37,12 @@
 </template>
 
 <script>
+import VueScrollto from "vue-scrollto";
+import { mapState } from "vuex";
+
 export default {
   name: "Navbar",
+  computed: mapState(["lang"]),
   data: function() {
     return {
       navItems: [
@@ -93,12 +94,19 @@ export default {
           text: "English",
           value: "en"
         }
-      ]
+      ],
+      language: ""
     };
   },
   methods: {
-    callSetLangActions(event) {
-      this.$store.dispatch("setLang", event.target.value);
+    handleChangeLang() {
+      if (this.language === "English") {
+        this.$store.dispatch("setLang", "en");
+        this.language = "Tiếng Việt";
+      } else {
+        this.$store.dispatch("setLang", "vi");
+        this.language = "English";
+      }
     },
 
     handleScroll() {
@@ -116,6 +124,11 @@ export default {
 
   mounted() {
     this.selected = window.localStorage.getItem("language") || "vi";
+    if (this.selected === "vi") {
+      this.language = "English";
+    } else {
+      this.language = "Tiếng Việt";
+    }
   }
 };
 </script>

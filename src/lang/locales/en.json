@@ -11,5 +11,9 @@
   "mainNavTitle6": "Works",
   "mainNavTitle7": "Testimonial",
   "mainNavTitle8": "About",
-  "mainNavTitle9": "Contact"
+  "mainNavTitle9": "Contact",
+  "services": "services",
+  "products": "Products",
+  "all": "All",
+  "clients": "Clients"
 }

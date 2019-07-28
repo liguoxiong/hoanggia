@@ -5,14 +5,12 @@
         <div class="col-lg-6 col-md-12 col-sm-12">
           <div class="text-wrapper">
             <div>
-              <h2 class="title-hl wow fadeInLeft" data-wow-delay="0.3s">
-                We are helping to grow
-                <br />your business.
-              </h2>
-              <p
-                class="mb-4"
-              >A digital studio specialising in User Experience & eCommerce, we combine innovation with digital craftsmanship to help brands fulfill their potential.</p>
-              <a href="#" class="btn btn-common">More About Us</a>
+              <h2
+                class="title-hl wow fadeInLeft"
+                data-wow-delay="0.3s"
+              >{{content ? content.feature_title[lang] : ""}}</h2>
+              <p class="mb-4">{{content ? content.feature_description[lang] : ""}}</p>
+              <!-- <a href="#" class="btn btn-common">More About Us</a> -->
             </div>
           </div>
         </div>
@@ -26,7 +24,7 @@
               :key="index"
             >
               <div class="icon">
-                <img class="img-fluid" :src="/images/ + item.image" :alt="item.name[lang]" />
+                <img :src="/images/ + item.image" :alt="item.name[lang]" />
               </div>
               <div class="feature-content">
                 <h3>{{ item ? item.name[lang] : "" }}</h3>
@@ -42,34 +40,14 @@
 
 <script>
 import axios from "axios";
-import store from "@/store";
 import { mapState } from "vuex";
 
 export default {
   name: "Feature",
-  computed: mapState(["lang"]),
+  computed: mapState(["lang", "content"]),
   data: function() {
     return {
-      items: [
-        // {
-        //   item: "lni-microphone",
-        //   title: "What we do",
-        //   content:
-        //     "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia con- sequuntur magni dolores"
-        // },
-        // {
-        //   item: "lni-users",
-        //   title: "Meet our team",
-        //   content:
-        //     "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia con- sequuntur magni dolores"
-        // },
-        // {
-        //   item: "lni-medall-alt",
-        //   title: "Our Creation",
-        //   content:
-        //     "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia con- sequuntur magni dolores"
-        // }
-      ]
+      items: []
     };
   },
 
