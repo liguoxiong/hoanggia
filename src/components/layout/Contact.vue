@@ -4,7 +4,7 @@
       <div class="row contact-form-area wow fadeInUp" data-wow-delay="0.4s">
         <div class="col-md-6 col-lg-6 col-sm-12">
           <div class="contact-block">
-            <form id="contactForm">
+            <form id="contactForm" @submit="onSubmit">
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
@@ -13,6 +13,7 @@
                       class="form-control"
                       id="name"
                       name="name"
+                      v-model="form.name"
                       placeholder="Name"
                       required
                       data-error="Please enter your name"
@@ -28,6 +29,7 @@
                       id="email"
                       class="form-control"
                       name="email"
+                      v-model="form.email"
                       required
                       data-error="Please enter your email"
                     />
@@ -41,6 +43,7 @@
                       placeholder="Subject"
                       id="msg_subject"
                       class="form-control"
+                      v-model="form.subject"
                       required
                       data-error="Please enter your subject"
                     />
@@ -52,6 +55,7 @@
                     <textarea
                       class="form-control"
                       id="message"
+                      v-model="form.message"
                       placeholder="Your Message"
                       rows="5"
                       data-error="Write your message"
@@ -75,13 +79,13 @@
               <h1>We're a friendly bunch..</h1>
               <p>We create projects for companies and startups with a passion for quality</p>
             </div>
-            <h2>Contact Us</h2>
+            <h2>{{$t("contactus")}}</h2>
             <div class="contact-right" v-bind="info">
               <div class="single-contact">
                 <div class="contact-icon">
                   <i class="lni-map-marker"></i>
                 </div>
-                <p>ADDRESS: {{info.address ? info.address[lang] : ""}}</p>
+                <p>{{$t("address")}}: {{info.address ? info.address[lang] : ""}}</p>
               </div>
               <div class="single-contact">
                 <div class="contact-icon">
@@ -96,7 +100,7 @@
                   <i class="lni-phone-handset"></i>
                 </div>
                 <p>
-                  <a href="#">Phone: {{info.phone ? info.phone : ""}}</a>
+                  <a href="#">{{$t("phone")}}: {{info.phone ? info.phone : ""}}</a>
                 </p>
               </div>
             </div>
@@ -109,8 +113,19 @@
 
 <script>
 import axios from "axios";
+// import VueLoading from "vuejs-loading-plugin";
+
 import store from "@/store";
 import { mapState } from "vuex";
+
+// Vue.use(VueLoading, {
+//   dark: true, // default false
+//   text: "Sending", // default 'Loading'
+//   loading: true, // default false
+//   customLoader: myVueComponent, // replaces the spinner and text with your own
+//   background: "rgb(255,255,255)", // set custom background
+//   classes: ["myclass"] // array, object or string
+// });
 
 export default {
   name: "Contact",
@@ -122,6 +137,12 @@ export default {
         // address: "28 Green Tower, New York City, USA",
         // email: "contact@hoanggia.asia",
         // phone: "+84 846 250 592"
+      },
+      form: {
+        name: "",
+        email: "",
+        subject: "",
+        message: ""
       }
     };
   },
@@ -129,6 +150,32 @@ export default {
     axios.get("/api/info").then(response => {
       return (this.info = response.data.data[0]);
     });
+  },
+  methods: {
+    onSubmit(evt) {
+      // this.$loading(true);
+      evt.preventDefault();
+      const input = {
+        name: this.form.name,
+        email: this.form.email,
+        subject: this.form.subject,
+        message: this.form.message
+      };
+      // console.log("input", input);
+      axios.post("/api/sendbasicemail", input).then(res => {
+        if (res.data.success) {
+          // this.$loading(false);
+          alert(res.data.msg);
+        } else {
+          alert("Please try again!");
+          // this.$loading(false);
+        }
+      });
+      this.form.name = "";
+      this.form.email = "";
+      this.form.subject = "";
+      this.form.message = "";
+    }
   }
 };
 </script>

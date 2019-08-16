@@ -3,17 +3,20 @@
     "select_lang": "Ngôn ngữ"
   },
 
-  "mainNavTitle1": "Trang chủ",
-  "mainNavTitle2": "Feature",
-  "mainNavTitle3": "Dịch vụ",
-  "mainNavTitle4": "Đội ngũ",
-  "mainNavTitle5": "Pricing",
-  "mainNavTitle6": "Works",
-  "mainNavTitle7": "Testimonial",
-  "mainNavTitle8": "Giới thiệu",
-  "mainNavTitle9": "Liên hệ",
+  "home": "Trang chủ",
+  "about": "Giới thiệu",
+  "distributor": "Nhà phân phối",
+  "client": "Khách hàng",
+  "contact": "Liên hệ",
   "services": "Dịch vụ",
   "products": "Sản phẩm",
   "all": "Tất cả",
-  "clients": "Khách hàng"
+  "clients": "Khách hàng",
+  "contactus": "Liên hệ",
+  "address": "Địa chỉ",
+  "phone": "Số điện thoại",
+  "name": "Họ tên",
+  "subject": "Tiêu đề",
+  "message": "Lời nhắn",
+  "sendmsg": "Gửi yêu cầu"
 }

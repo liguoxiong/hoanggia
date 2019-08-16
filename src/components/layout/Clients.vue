@@ -3,7 +3,7 @@
     <div class="container">
       <div class="section-header text-center">
         <h2 class="section-title wow fadeInDown" data-wow-delay="0.3s">{{$t("clients")}}</h2>
-        <p>{{content.clients_description ? content.clients_description[lang] : ""}}</p>
+        <p>{{content ? content.clients_description[lang] : ""}}</p>
       </div>
       <div class="row text-align-center">
         <div

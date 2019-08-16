@@ -17,12 +17,12 @@
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <i class="lni-menu"></i>
+        <i class="fas fa-bars"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto w-100 justify-content-end clearfix">
           <li class="nav-item" v-for="(navItem, index) in navItems" :key="index">
-            <router-link to="#" :v-scroll-to="'#team'" class="nav-link">{{ $t(navItem.title) }}</router-link>
+            <button class="nav-link" @click="moveTo(index)">{{ $t(navItem.title) }}</button>
           </li>
           <li class="nav-item">
             <div class="nav-link">|</div>
@@ -107,6 +107,9 @@ export default {
         this.$store.dispatch("setLang", "vi");
         this.language = "English";
       }
+    },
+    moveTo: function(index) {
+      this.$refs.fullpage.$fullpage.moveTo(index, true);
     },
 
     handleScroll() {

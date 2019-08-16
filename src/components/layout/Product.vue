@@ -73,7 +73,7 @@ export default {
     });
     axios.get("/api/products").then(response => {
       this.isActive = "all";
-      console.log(this.isActive);
+      // console.log(this.isActive);
       return (this.products = response.data.data);
     });
   },
@@ -88,14 +88,14 @@ export default {
     handleLoadAll() {
       axios.get("/api/products").then(response => {
         this.isActive = "all";
-        console.log(this.isActive);
+        // console.log(this.isActive);
         return (this.products = response.data.data);
       });
     },
     handleLoadByCat(id) {
       axios.get(`/api/products?cat=${id}`).then(response => {
         this.isActive = id.toString();
-        console.log(this.isActive);
+        // console.log(this.isActive);
         return (this.products = response.data.data);
       });
     }

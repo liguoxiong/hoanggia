@@ -3,17 +3,19 @@
     "select_lang": "Language"
   },
 
-  "mainNavTitle1": "Home",
-  "mainNavTitle2": "Feature",
-  "mainNavTitle3": "Services",
-  "mainNavTitle4": "Team",
-  "mainNavTitle5": "Pricing",
-  "mainNavTitle6": "Works",
-  "mainNavTitle7": "Testimonial",
-  "mainNavTitle8": "About",
-  "mainNavTitle9": "Contact",
+  "home": "Home",
+  "distributor": "Distributor",
+  "client": "Clients",
+  "contact": "Contact",
   "services": "services",
   "products": "Products",
   "all": "All",
-  "clients": "Clients"
+  "clients": "Clients",
+  "contactus": "Contact Us",
+  "address": "ADDRESS",
+  "phone": "Phone",
+  "name": "Name",
+  "subject": "Subject",
+  "message": "Message",
+  "sendmsg": "SEND REQUEST"
 }
