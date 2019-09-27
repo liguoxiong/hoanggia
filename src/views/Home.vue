@@ -62,6 +62,7 @@
                             <p>{{carosel.description ? carosel.description[lang] : ""}}</p>
                           </div>
                         </div>
+                        <!-- <div class="single-content" style="position: absolute; top: 20vh"> -->
                       </div>
                     </div>
                   </slide>
@@ -1041,15 +1042,15 @@ export default {
     }
   }
   .single-content {
-    background-color: rgba(22, 26, 39, 0.1);
-    // height: 100%;
-    left: 0;
+    background-color: rgba(22, 26, 39, 0.3);
+    height: 100%;
+    // left: 0;
     // opacity: 0;
     position: absolute;
     top: 0;
-    transition: all 0.6s ease;
-    -moz-transition: all 0.6s ease;
-    -webkit-transition: all 0.6s ease;
+    // transition: all 0.6s ease;
+    // -moz-transition: all 0.6s ease;
+    // -webkit-transition: all 0.6s ease;
     width: 100%;
     .fancy-table {
       display: table;

@@ -20,11 +20,11 @@ module.exports = {
   devServer: {
     proxy: {
       "/api/*": {
-        target: "http://localhost:8000",
+        target: "http://hoanggia.asia",
         secure: false
       },
       "/images/*": {
-        target: "http://localhost:8000",
+        target: "http://hoanggia.asia",
         changeOrigin: true
       }
     }
